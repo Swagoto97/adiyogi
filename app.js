@@ -117,14 +117,18 @@ function App() {
 }
 
 // Initialize app when page loads
-window.addEventListener("load", () => {
+$(window).on("load", function () {
   try {
     console.log("Initializing React app...");
-    const rootElement = document.getElementById("root");
 
-    if (!rootElement) {
+    const $rootElement = $("#root");
+
+    if ($rootElement.length === 0) {
       throw new Error("Root element not found");
     }
+
+    // Get the actual DOM element for React
+    const rootElement = $rootElement[0];
 
     const root = ReactDOM.createRoot(rootElement);
     root.render(
@@ -134,14 +138,20 @@ window.addEventListener("load", () => {
     console.log("React app initialized successfully");
   } catch (error) {
     console.error("Failed to initialize app:", error);
-    document.getElementById("root").innerHTML = `
-            <div style="padding: 2rem; text-align: center; color: #ef4444;">
-                <h1>Application Error</h1>
-                <p>Failed to load the application. Please check the console for details.</p>
-                <button onclick="window.location.reload()" style="padding: 0.5rem 1rem; background: #7c3aed; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">
-                    Refresh Page
-                </button>
-            </div>
-        `;
+
+    $("#root").html(`
+      <div style="padding: 2rem; text-align: center; color: #ef4444;">
+        <h1>Application Error</h1>
+        <p>Failed to load the application. Please check the console for details.</p>
+        <button id="refresh-btn" style="padding: 0.5rem 1rem; background: #7c3aed; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">
+          Refresh Page
+        </button>
+      </div>
+    `);
+
+    // jQuery event handler for refresh button
+    $(document).on("click", "#refresh-btn", function () {
+      window.location.reload();
+    });
   }
 });
