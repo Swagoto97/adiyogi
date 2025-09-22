@@ -1,0 +1,43 @@
+.contact-section {
+    position: relative;
+}
+
+.contact-info {
+    position: relative;
+}
+
+.contact-info i {
+    background: linear-gradient(135deg, #7B1FA2 0%, #9747FF 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.contact-info-item {
+    transition: transform 0.3s ease;
+}
+
+.contact-info-item:hover {
+    transform: translateX(5px);
+}
+
+.contact-info-item:hover i {
+    transform: scale(1.2);
+}
+
+.embedded-form {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.embedded-form:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+    .embedded-form iframe {
+        height: 700px;
+    }
+}
