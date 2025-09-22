@@ -117,7 +117,7 @@ function App() {
 }
 
 // Initialize app when page loads
-$(window).on("load", function () {
+$(document).ready(function () {
   try {
     console.log("Initializing React app...");
 
