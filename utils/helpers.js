@@ -1,5 +1,8 @@
-// Common helper functions
+// Common helper functions with debugging
 function reportError(error) {
     console.error('Application error:', error);
-    // Add any additional error reporting logic here
+    console.trace('Error stack trace');
 }
+
+// Log component loading for debugging
+console.log('Helpers loaded successfully');

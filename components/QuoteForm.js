@@ -1,54 +1,92 @@
 function QuoteForm({ onClose }) {
     try {
-        const [showConfirmation, setShowConfirmation] = React.useState(false);
+        const [formData, setFormData] = React.useState({
+            name: '',
+            email: '',
+            company: '',
+            product: '',
+            quantity: '',
+            message: ''
+        });
 
-        // Handle form submission message and redirect
-        const handleFormSubmit = () => {
-            setShowConfirmation(true);
-            setTimeout(() => {
-                onClose();
-                window.location.href = 'https://87nhl9gxxyxn.trickle.host/#about';
-            }, 2000);
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            // Handle form submission logic here
+            console.log('Quote request submitted:', formData);
+            onClose();
         };
 
-        // Listen for message from embedded form
-        React.useEffect(() => {
-            const handleMessage = (event) => {
-                if (event.data === 'formSubmitted') {
-                    handleFormSubmit();
-                }
-            };
-            
-            window.addEventListener('message', handleMessage);
-            return () => window.removeEventListener('message', handleMessage);
-        }, []);
+        const handleChange = (e) => {
+            setFormData({
+                ...formData,
+                [e.target.name]: e.target.value
+            });
+        };
 
         return (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" data-name="quote-form">
-                <div className="bg-white rounded-lg p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
-                    <button 
-                        onClick={onClose} 
-                        className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-                        data-name="close-button"
-                    >
-                        <i className="fas fa-times"></i>
-                    </button>
-
-                    {showConfirmation ? (
-                        <div className="text-center p-8" data-name="confirmation-message">
-                            <p className="text-lg text-green-600">
-                                Thank you for your message. We will get back to you soon!
-                            </p>
-                        </div>
-                    ) : (
-                        <iframe
-                            src="https://j7qqbp1r.forms.app/request-a-quote"
-                            width="100%"
-                            height="600px"
-                            frameBorder="0"
-                            data-name="quote-form-iframe"
-                        ></iframe>
-                    )}
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" data-name="quote-form-modal">
+                <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+                    <div className="flex justify-between items-center mb-6">
+                        <h3 className="text-2xl font-semibold">Request Quote</h3>
+                        <button
+                            onClick={onClose}
+                            className="text-gray-400 hover:text-gray-600"
+                        >
+                            <i className="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Your Name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            required
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Your Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="company"
+                            placeholder="Company Name"
+                            value={formData.company}
+                            onChange={handleChange}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        />
+                        <input
+                            type="text"
+                            name="product"
+                            placeholder="Product Name"
+                            value={formData.product}
+                            onChange={handleChange}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            required
+                        />
+                        <textarea
+                            name="message"
+                            rows="3"
+                            placeholder="Additional Details"
+                            value={formData.message}
+                            onChange={handleChange}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        ></textarea>
+                        <button
+                            type="submit"
+                            className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 transition duration-300"
+                        >
+                            Submit Request
+                        </button>
+                    </form>
                 </div>
             </div>
         );

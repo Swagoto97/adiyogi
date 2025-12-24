@@ -10,12 +10,13 @@ function Header() {
             <header className="fixed w-full top-0 z-50 bg-white shadow-md" data-name="header">
                 <div className="container mx-auto px-4 py-4">
                     <nav className="flex justify-between items-center">
-                        <div className="flex items-center" data-name="logo">
+                        <div className="flex items-center space-x-3" data-name="logo">
                             <img 
                                 src="https://app.trickle.so/storage/public/images/usr_0f004a86b8000001/20b7cbab-aa6a-40f2-b6b8-e7a3d5406b19.gif" 
-                                alt="Adiyogi IE Services Logo" 
-                                className="h-10"
+                                alt="Adiyogi Export Logo" 
+                                className="h-16"
                             />
+                            <span className="text-2xl font-bold text-gray-800">Adiyogi Export</span>
                         </div>
 
                         <div className="hidden md:flex space-x-8" data-name="nav-links">
